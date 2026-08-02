@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>IMPOSTER | Real-Time Multiplayer Party Game</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            imposter: {
+              light: '#ef4444',
+              DEFAULT: '#dc2626',
+              dark: '#991b1b',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bounce-gentle': 'bounce 2s infinite',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased transition-colors duration-300 selection:bg-cyan-500 selection:text-white flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Toast Notification Overlay -->
+  <div id="toast-container" class="fixed top-4 right-4 left-4 sm:left-auto sm:w-96 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Header Bar -->
+  <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-40 px-4 py-3">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" id="header-logo">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 via-purple-500 to-cyan-400 p-0.5 shadow-lg shadow-purple-500/20">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+            <span class="text-xl">🕵️‍♂️</span>
+          </div>
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold tracking-wider bg-gradient-to-r from-rose-400 via-purple-300 to-cyan-400 bg-clip-text text-transparent">
+            IMPOSTER
+          </h1>
+          <p class="text-[10px] text-slate-400 font-medium uppercase tracking-widest leading-none">Party Web Game</p>
+        </div>
+      </div>
+
+      <!-- Header Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Room Code Badge (Hidden in Landing) -->
+        <div id="header-room-badge" class="hidden items-center gap-2 bg-slate-800/80 border border-slate-700/80 px-3 py-1.5 rounded-full">
+          <span class="text-xs text-slate-400 font-medium">ROOM:</span>
+          <span id="header-room-code" class="font-mono font-bold text-cyan-400 tracking-wider">------</span>
+          <button id="copy-room-btn" title="Copy Room Code" class="hover:text-cyan-300 text-slate-400 transition-colors">
+            📋
+          </button>
+        </div>
+
+        <!-- Mute/Sound Toggle -->
+        <button id="sound-toggle-btn" class="p-2 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:bg-slate-700/60 transition text-slate-300" title="Toggle Sound">
+          🔊
+        </button>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button id="theme-toggle-btn" class="p-2 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:bg-slate-700/60 transition text-slate-300" title="Toggle Theme">
+          🌙
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 flex flex-col justify-center">
+
+    <!-- ==================== SCREEN 1: LANDING & ROOM CREATION ==================== -->
+    <section id="landing-screen" class="space-y-8 py-4">
+      
+      <!-- Hero Header -->
+      <div class="text-center space-y-3">
+        <h2 class="text-3xl sm:text-5xl font-black tracking-tight">
+          Find the <span class="bg-gradient-to-r from-rose-500 via-red-500 to-amber-500 bg-clip-text text-transparent">Imposter</span> Among You
+        </h2>
+        <p class="text-slate-400 max-w-lg mx-auto text-sm sm:text-base">
+          Blend in with subtle hints or expose the liar! Play real-time multiplayer with secret words or tricky questions.
+        </p>
+      </div>
+
+      <!-- Player Name Input Card -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-2xl backdrop-blur-xl max-w-xl mx-auto space-y-4">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">
+          Your Player Name
+        </label>
+        <div class="relative">
+          <input type="text" id="player-name-input" maxlength="15" placeholder="Enter your display name..." 
+            class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-5 py-3.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 text-lg font-medium transition" />
+          <span class="absolute right-4 top-4 text-sm text-slate-500">👤</span>
+        </div>
+      </div>
+
+      <!-- Create or Join Toggle Tabs -->
+      <div class="max-w-xl mx-auto space-y-6">
+        <div class="grid grid-cols-2 gap-2 p-1.5 bg-slate-900/80 border border-slate-800 rounded-2xl">
+          <button id="tab-create-btn" class="py-3 text-sm font-bold rounded-xl transition-all duration-200 bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25">
+            ✨ Create New Room
+          </button>
+          <button id="tab-join-btn" class="py-3 text-sm font-bold rounded-xl transition-all duration-200 text-slate-400 hover:text-slate-200">
+            🚪 Join Room Code
+          </button>
+        </div>
+
+        <!-- PANEL A: CREATE ROOM OPTIONS -->
+        <div id="panel-create-room" class="space-y-6 bg-slate-900/40 border border-slate-800/80 rounded-3xl p-6 backdrop-blur-xl">
+          
+          <!-- Mode Selection -->
+          <div class="space-y-3">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Select Game Mode</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              
+              <!-- Mode 1 Card -->
+              <div id="mode-word-card" class="mode-card cursor-pointer bg-slate-950/80 border-2 border-cyan-500/80 p-4 rounded-2xl transition hover:border-cyan-400">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-2xl">🔤</span>
+                  <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300">Mode 1</span>
+                </div>
+                <h3 class="font-bold text-slate-100">Word Imposter</h3>
+                <p class="text-xs text-slate-400 mt-1">Everyone receives a secret word. Imposter gets only the category!</p>
+              </div>
+
+              <!-- Mode 2 Card -->
+              <div id="mode-sentence-card" class="mode-card cursor-pointer bg-slate-950/40 border-2 border-slate-800 p-4 rounded-2xl transition hover:border-slate-700">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-2xl">❓</span>
+                  <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300">Mode 2</span>
+                </div>
+                <h3 class="font-bold text-slate-100">Sentence Imposter</h3>
+                <p class="text-xs text-slate-400 mt-1">Normal players get Question A. Imposter gets varied Question B!</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Category Selection -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Select Category (20 Available)</label>
+              <span id="selected-category-badge" class="text-xs font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20">Animals 🐾</span>
+            </div>
+            
+            <div id="categories-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-h-56 overflow-y-auto pr-1 custom-scrollbar">
+              <!-- Categories injected via JS -->
+            </div>
+          </div>
+
+          <!-- Create Button -->
+          <button id="create-room-submit-btn" class="w-full py-4 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-lg rounded-2xl shadow-xl shadow-cyan-500/25 transition active:scale-[0.99]">
+            Create Room & Lobby
+          </button>
+        </div>
+
+        <!-- PANEL B: JOIN ROOM CODE -->
+        <div id="panel-join-room" class="hidden space-y-6 bg-slate-900/40 border border-slate-800/80 rounded-3xl p-6 backdrop-blur-xl">
+          <div class="space-y-2">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Enter 6-Character Room Code</label>
+            <input type="text" id="join-room-code-input" maxlength="6" placeholder="e.g. X8K9L2" 
+              class="w-full text-center tracking-widest font-mono text-2xl uppercase bg-slate-950/80 border border-slate-700/80 rounded-2xl px-5 py-4 text-cyan-400 placeholder-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 font-bold transition" />
+          </div>
+
+          <button id="join-room-submit-btn" class="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-extrabold text-lg rounded-2xl shadow-xl shadow-emerald-500/25 transition active:scale-[0.99]">
+            Join Room
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== SCREEN 2: ROOM LOBBY ==================== -->
+    <section id="lobby-screen" class="hidden space-y-6 py-4">
+      
+      <!-- Lobby Top Bar -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 backdrop-blur-xl space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs uppercase tracking-widest font-bold text-slate-400">ROOM CODE</span>
+              <span id="lobby-room-code" class="font-mono text-2xl font-black text-cyan-400 tracking-wider">------</span>
+              <button id="lobby-copy-code-btn" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs px-3 py-1 rounded-xl transition flex items-center gap-1 font-bold">
+                📋 Copy Code
+              </button>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Share this 6-character code with your friends to join!</p>
+          </div>
+
+          <!-- Lobby Game Badges -->
+          <div class="flex items-center gap-2">
+            <span id="lobby-mode-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-purple-500/10 border border-purple-500/30 text-purple-300">
+              Word Imposter
+            </span>
+            <span id="lobby-category-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 border border-amber-500/30 text-amber-300">
+              Animals 🐾
+            </span>
+          </div>
+        </div>
+
+        <!-- Min Players Status Alert -->
+        <div id="lobby-min-players-alert" class="bg-amber-500/10 border border-amber-500/20 text-amber-300 px-4 py-2.5 rounded-2xl text-xs font-medium flex items-center gap-2">
+          <span>⚠️</span>
+          <span>Waiting for players... At least 3 players are required to start the game.</span>
+        </div>
+      </div>
+
+      <!-- Player List & Host Controls Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Connected Players Column (2 cols) -->
+        <div class="md:col-span-2 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-extrabold text-lg tracking-wide flex items-center gap-2">
+              <span>👥 Connected Players</span>
+              <span id="lobby-player-count-badge" class="text-xs font-bold bg-cyan-500/20 text-cyan-300 px-2.5 py-0.5 rounded-full">0 / 12</span>
+            </h3>
+            <span class="text-xs text-slate-400">Host can kick at any time</span>
+          </div>
+
+          <!-- Players List Container -->
+          <div id="lobby-players-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto pr-1 custom-scrollbar">
+            <!-- Player items injected via JS -->
+          </div>
+        </div>
+
+        <!-- Leaderboard & Controls Side Column -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <h3 class="font-extrabold text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2">
+              <span>🏆 Cumulative Leaderboard</span>
+            </h3>
+            
+            <div id="lobby-leaderboard-list" class="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
+              <!-- Leaderboard items injected via JS -->
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="space-y-3 pt-4 border-t border-slate-800">
+            <!-- Host Start Game Button -->
+            <button id="lobby-start-game-btn" class="hidden w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-extrabold rounded-2xl shadow-lg shadow-emerald-500/20 transition active:scale-[0.99]">
+              🚀 Start Game Round
+            </button>
+            <p id="lobby-waiting-host-text" class="text-center text-xs text-slate-400 py-2">
+              Waiting for host to start the game...
+            </p>
+
+            <!-- Leave Room Button -->
+            <button id="lobby-leave-room-btn" class="w-full py-2.5 bg-slate-800/80 hover:bg-red-500/20 text-slate-300 hover:text-red-300 border border-slate-700/80 hover:border-red-500/30 text-xs font-bold rounded-xl transition">
+              🚪 Leave Room
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== SCREEN 3: WRITING & HINT PHASE ==================== -->
+    <section id="writing-screen" class="hidden space-y-6 py-4">
+      
+      <!-- Phase Header & Live Timer -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 backdrop-blur-xl flex items-center justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-widest font-extrabold text-cyan-400">PHASE 1 OF 2</span>
+          <h2 id="writing-phase-title" class="text-xl sm:text-2xl font-black">Submit Your Hint</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">TIME REMAINING</span>
+            <span id="writing-timer-count" class="font-mono text-2xl font-black text-amber-400">75s</span>
+          </div>
+          <!-- Host Return to Lobby Button -->
+          <button id="writing-host-lobby-btn" class="hidden text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-bold px-3 py-1.5 rounded-xl transition" title="Host Option">
+            ↩️ Lobby
+          </button>
+        </div>
+      </div>
+
+      <!-- Secret Role Card -->
+      <div id="role-reveal-card" class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-slate-800 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-2xl relative overflow-hidden">
+        
+        <!-- Imposter vs Player Banner -->
+        <div id="role-badge-container">
+          <span id="role-badge" class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+            YOU ARE INNOCENT
+          </span>
+        </div>
+
+        <!-- Role Main Content Display -->
+        <div class="space-y-2 py-2">
+          <p id="role-subtitle" class="text-xs uppercase tracking-widest text-slate-400 font-bold">Your Secret Word</p>
+          <div id="role-main-text" class="text-3xl sm:text-5xl font-black tracking-tight text-slate-100">
+            ---
+          </div>
+          <p id="role-hint-instruction" class="text-xs text-slate-400 max-w-md mx-auto pt-2">
+            Write a clever, subtle hint so innocent players know you are safe, without revealing the exact word to the Imposter!
+          </p>
+        </div>
+
+        <!-- Imposter Special Perk Button (Word Mode Only) -->
+        <div id="imposter-perk-container" class="hidden pt-2">
+          <button id="imposter-peek-btn" class="bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-white text-xs font-extrabold px-5 py-2.5 rounded-2xl shadow-lg shadow-amber-500/20 transition active:scale-95 flex items-center gap-2 mx-auto">
+            <span>👁️ Peek 1 Random Hint (Imposter Perk)</span>
+          </button>
+          <p id="imposter-peek-result" class="text-xs font-bold text-amber-300 mt-2 hidden bg-amber-500/10 border border-amber-500/20 px-4 py-2 rounded-xl inline-block"></p>
+        </div>
+
+      </div>
+
+      <!-- Hint Submission Input Card -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 backdrop-blur-xl space-y-4 max-w-2xl mx-auto">
+        <label id="writing-input-label" class="block text-xs font-bold uppercase tracking-wider text-slate-400">
+          Your Hint / Answer Submission
+        </label>
+        
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="writing-input" maxlength="60" placeholder="Type your clue or answer here..." 
+            class="flex-1 bg-slate-950/80 border border-slate-700/80 rounded-2xl px-5 py-3.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 font-medium transition" />
+          
+          <button id="submit-hint-btn" class="py-3.5 px-8 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-base rounded-2xl shadow-lg shadow-cyan-500/25 transition active:scale-95 whitespace-nowrap">
+            Submit Hint
+          </button>
+        </div>
+
+        <p id="writing-status-msg" class="text-xs font-semibold text-slate-400 text-center">
+          You can edit your submission until all players submit or time expires.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ==================== SCREEN 4: DISCUSSION & VOTING ==================== -->
+    <section id="voting-screen" class="hidden space-y-6 py-4">
+      
+      <!-- Phase Header & Live Timer -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 backdrop-blur-xl flex items-center justify-between gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-widest font-extrabold text-purple-400">PHASE 2 OF 2</span>
+          <h2 class="text-xl sm:text-2xl font-black">Discuss & Vote the Imposter</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">VOTING TIME</span>
+            <span id="voting-timer-count" class="font-mono text-2xl font-black text-purple-400">60s</span>
+          </div>
+          <!-- Host Return to Lobby Button -->
+          <button id="voting-host-lobby-btn" class="hidden text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-bold px-3 py-1.5 rounded-xl transition">
+            ↩️ Lobby
+          </button>
+        </div>
+      </div>
+
+      <!-- Question / Word Top Banner Reveal -->
+      <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-5 text-center space-y-1">
+        <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">REVEALED SUBJECT / QUESTION A</span>
+        <h3 id="voting-revealed-title" class="text-lg sm:text-2xl font-black text-cyan-300">
+          ---
+        </h3>
+      </div>
+
+      <!-- Hint Cards Voting Grid -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Click a card to cast your vote</span>
+          <span id="voting-submitted-badge" class="text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded-full">0 / 0 Voted</span>
+        </div>
+
+        <div id="voting-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <!-- Submission Vote Cards injected via JS -->
+        </div>
+      </div>
+
+      <!-- Submit Vote Button -->
+      <div class="text-center pt-2">
+        <button id="confirm-vote-btn" disabled class="disabled:opacity-50 disabled:cursor-not-allowed py-4 px-10 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 hover:from-purple-500 hover:to-rose-500 text-white font-black text-lg rounded-2xl shadow-xl shadow-purple-600/30 transition active:scale-95">
+          Confirm Vote
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ==================== SCREEN 5: RESULTS & LEADERBOARD ==================== -->
+    <section id="results-screen" class="hidden space-y-6 py-4">
+      
+      <!-- Dramatic Results Hero Header -->
+      <div id="results-hero-card" class="bg-slate-900/90 border-2 border-slate-800 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+        
+        <div id="results-verdict-badge" class="inline-block px-5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+          IMPOSTER CAUGHT!
+        </div>
+
+        <h2 id="results-verdict-title" class="text-3xl sm:text-5xl font-black text-slate-100 tracking-tight">
+          Innocents Win The Round!
+        </h2>
+
+        <!-- Reveal Imposter & Secret Word -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto pt-4 text-left">
+          <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">THE IMPOSTER WAS</span>
+            <span id="results-imposter-name" class="text-xl font-black text-rose-400">---</span>
+          </div>
+
+          <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4">
+            <span id="results-secret-label" class="text-[10px] font-extrabold uppercase text-slate-400 block">SECRET WORD</span>
+            <span id="results-secret-value" class="text-xl font-black text-cyan-300">---</span>
+          </div>
+        </div>
+
+        <div id="results-questions-breakdown" class="hidden max-w-xl mx-auto bg-slate-950/40 border border-slate-800 rounded-2xl p-4 text-left text-xs space-y-1">
+          <p><span class="font-bold text-slate-400">Normal Question A:</span> <span id="results-qa-text" class="text-slate-200"></span></p>
+          <p><span class="font-bold text-rose-400">Imposter Question B:</span> <span id="results-qb-text" class="text-slate-200"></span></p>
+        </div>
+
+      </div>
+
+      <!-- Breakdown & Scores Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Vote Distribution List -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <h3 class="font-extrabold text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <span>🗳️ Vote Breakdown</span>
+          </h3>
+
+          <div id="results-votes-list" class="space-y-2.5 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
+            <!-- Votes injected via JS -->
+          </div>
+        </div>
+
+        <!-- Round Points & Cumulative Leaderboard -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <h3 class="font-extrabold text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <span>🏆 Standings & Points Awarded</span>
+          </h3>
+
+          <div id="results-leaderboard-list" class="space-y-2.5 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
+            <!-- Standings injected via JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <button id="results-next-round-btn" class="hidden w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-lg rounded-2xl shadow-xl shadow-cyan-500/25 transition active:scale-95">
+          ➡️ Next Game Round
+        </button>
+
+        <button id="results-lobby-btn" class="w-full sm:w-auto px-8 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold text-lg rounded-2xl border border-slate-700 transition active:scale-95">
+          ↩️ Return to Lobby
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-4 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 Imposter Party Game • Built with Express & Socket.io</p>
+      <div class="flex items-center gap-4">
+        <span>Word & Sentence Modes</span>
+        <span>•</span>
+        <span>Real-Time Sync</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="categories.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

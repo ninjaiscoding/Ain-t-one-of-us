@@ -1,0 +1,28 @@
+{
+  "name": "imposter-game-multiplayer",
+  "version": "1.0.0",
+  "description": "Production-ready real-time multiplayer Imposter web game with Word and Sentence modes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "imposter",
+    "multiplayer",
+    "socket.io",
+    "express",
+    "game",
+    "word-imposter",
+    "sentence-imposter"
+  ],
+  "author": "Antigravity",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
