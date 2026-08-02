@@ -16,7 +16,7 @@ const CATEGORIES = {
       "Poison Dart Frog", "Axolotl", "Salamander", "Chinchilla", "Lemur", "Meerkat", "Tasmanian Devil", "Wombat", "Dingo", "Fennec Fox"
     ],
     questions: [
-        { normal: "What is an animal you would love to pet, but can't?", imposter: "What is an animal you would love to eat, but can't?" },
+  { normal: "What is an animal you would love to pet, but can't?", imposter: "What is an animal you would love to eat, but can't?" },
   { normal: "What do you think a cat is exceptionally good at?", imposter: "What do you think a cat is completely incapable of doing?" },
   { normal: "What is an animal you would keep at home if safety wasn't an issue?", imposter: "What is an animal you would instantly run away from in the wild?" },
   { normal: "What is a wild animal that seems surprisingly peaceful?", imposter: "What is a domestic pet that can be surprisingly aggressive?" },
@@ -59,7 +59,7 @@ const CATEGORIES = {
       "Fencing", "Rowing", "Canoeing", "Water Polo", "Bowling", "Billiards / Pool", "Dart Throwing", "Squash", "Cricket T20", "Equestrian"
     ],
     questions: [
-       { normal: "What sport requires the most physical strength to excel at?", imposter: "What sport requires the most stamina and cardio to excel at?" },
+  { normal: "What sport requires the most physical strength to excel at?", imposter: "What sport requires the most stamina and cardio to excel at?" },
   { normal: "What sport is most exciting to watch live in a packed stadium?", imposter: "What sport is best suited to play casually with friends on a weekend?" },
   { normal: "What is a sport where a referee's bad decision can ruin the whole game?", imposter: "What is a sport where weather conditions severely impact play?" },
   { normal: "What sport takes the longest amount of time to master professionally?", imposter: "What sport has the highest risk of injury for players?" },
@@ -102,7 +102,7 @@ const CATEGORIES = {
       "Giannis Antetokounmpo", "Erling Haaland", "Luka Dončić", "Zlatan Ibrahimović", "Yuvraj Singh", "Shohei Ohtani", "Carlos Alcaraz", "Manny Pacquiao", "Floyd Mayweather", "Ronda Rousey"
     ],
     questions: [
-        { normal: "Who is an athlete known for having an unbeatable mindset?", imposter: "Who is an athlete known for having massive global brand endorsements?" },
+  { normal: "Who is an athlete known for having an unbeatable mindset?", imposter: "Who is an athlete known for having massive global brand endorsements?" },
   { normal: "Which legendary sports figure dominated their era completely uncontested?", imposter: "Which sports figure is famous for dramatic comebacks from defeat?" },
   { normal: "Which athlete would you choose to carry your team in a high-pressure final?", imposter: "Which athlete is most famous for their flashy personal style and lifestyle?" },
   { normal: "Which athlete retired at the absolute peak of their career?", imposter: "Which athlete stayed active long past their prime because they loved competing?" },
@@ -145,7 +145,7 @@ const CATEGORIES = {
       "Spirited Away", "Coco", "The Lion King", "Toy Story", "Shrek", "The Avengers", "Black Panther", "Joker", "Top Gun: Maverick", "Dune"
     ],
     questions: [
-        { normal: "What movie ending left you completely shocked or mind-blown?", imposter: "What movie ending made you feel emotional or teary-eyed?" },
+  { normal: "What movie ending left you completely shocked or mind-blown?", imposter: "What movie ending made you feel emotional or teary-eyed?" },
   { normal: "What film is best experienced on a massive IMAX cinema screen?", imposter: "What film is best enjoyed late at night wrapped in a blanket?" },
   { normal: "Which iconic movie villain stole the spotlight from the hero?", imposter: "Which movie protagonist underwent the most intense character arc?" },
   { normal: "What movie has a musical soundtrack or score that gives you chills?", imposter: "What movie relies heavily on practical visual effects and stunts?" },
@@ -188,7 +188,7 @@ const CATEGORIES = {
       "SSSniperWolf", "Pokimane", "Valkyrae", "Emma Chamberlain", "Lofi Girl", "Daily Dose of Internet", "Good Mythical Morning", "First We Feast (Hot Ones)", "Niko Omilana", "Jaser"
     ],
     questions: [
-       { normal: "Which YouTuber spends astronomical amounts of money on video production?", imposter: "Which YouTuber gained massive popularity primarily through livestreaming?" },
+  { normal: "Which YouTuber spends astronomical amounts of money on video production?", imposter: "Which YouTuber gained massive popularity primarily through livestreaming?" },
   { normal: "What creator do you turn to when you want educational or mind-bending facts?", imposter: "What creator do you watch when you just want pure chaotic entertainment?" },
   { normal: "Which internet personality has successfully launched major real-world businesses?", imposter: "Which internet personality is famous for doing extreme viral challenges?" },
   { normal: "Which YouTuber has the most dedicated, loyal fanbase on the platform?", imposter: "Which YouTuber is constantly involved in internet drama or feuds?" },
@@ -231,7 +231,7 @@ const CATEGORIES = {
       "Astronaut Suit", "Red Giant", "White Dwarf", "Kuiper Belt", "Solar Wind", "Gamma Ray Burst", "Space Shuttle Discovery", "Zero Gravity", "Terraforming", "Alien Life Search"
     ],
     questions: [
-        { normal: "What cosmic entity or event poses the scariest threat to human existence?", imposter: "What space phenomenon produces the most breathtaking visual imagery?" },
+  { normal: "What cosmic entity or event poses the scariest threat to human existence?", imposter: "What space phenomenon produces the most breathtaking visual imagery?" },
   { normal: "What technological milestone would make interplanetary travel realistic?", imposter: "What scientific discovery would definitively prove extraterrestrial life exists?" },
   { normal: "If you could instantly travel anywhere in space, where would you go?", imposter: "What heavenly body would be the hardest for humanity to terraform?" },
   { normal: "What object in space has gravity so intense that not even light escapes it?", imposter: "What object in space is composed almost entirely of super-dense ice and gas?" },
@@ -260,7 +260,7 @@ const CATEGORIES = {
   { normal: "What collision event in Earth's history wiped out most living species?", imposter: "What future collision between our galaxy and a neighbor will happen eventually?" },
   { normal: "What space suit color is iconic for spacewalks vs launch phases?", imposter: "What launch location on Earth is famous for sending rockets into orbit?" },
   { normal: "What fundamental force holds solar systems and galaxies together?", imposter: "What mystery expansion force is pushing the universe apart faster over time?" },
-  { normal: "What message or artifact carried on a space probe represents Earth to aliens?", imposter: "What futuristic space propulsion concept could reach another star system?" }}
+  { normal: "What message or artifact carried on a space probe represents Earth to aliens?", imposter: "What futuristic space propulsion concept could reach another star system?" }
     ]
   },
   objects: {
@@ -274,7 +274,7 @@ const CATEGORIES = {
       "Curtains", "Trash Can", "Fire Extinguisher", "Door Key", "Calculator", "Scissors", "Flashlight", "Luggage Suitcase", "Wall Clock", "Shoe Rack"
     ],
     questions: [
-       { normal: "What household appliance would cause the biggest disaster if it broke down today?", imposter: "What household item do you use daily without giving it any thought?" },
+  { normal: "What household appliance would cause the biggest disaster if it broke down today?", imposter: "What household item do you use daily without giving it any thought?" },
   { normal: "What object in a home is most satisfying to clean or organize?", imposter: "What object in a home is the biggest hassle to move to a new apartment?" },
   { normal: "What item in your room do you rely on most for personal comfort?", imposter: "What item in your living space cost way more money than it should have?" },
   { normal: "What sharp tool in the kitchen requires the most careful handling?", imposter: "What kitchen gadget sits in a drawer for months without being used?" },
@@ -317,7 +317,7 @@ const CATEGORIES = {
       "Gordon Ramsay", "MrBeast", "Stephen Hawking", "Albert Einstein", "Oprah", "Will Smith", "Jennifer Lawrence", "Chris Hemsworth", "Robert Downey Jr", "Scarlett Johansson"
     ],
     questions: [
-        { normal: "Which public figure built an empire through visionary innovation?", imposter: "Which public figure constantly dominates internet viral headlines?" },
+  { normal: "Which public figure built an empire through visionary innovation?", imposter: "Which public figure constantly dominates internet viral headlines?" },
   { normal: "Who is a celebrity that seems genuinely likeable and grounded in interviews?", imposter: "Who is a celebrity that has built a massive global cult following?" },
   { normal: "If you could sit down for dinner with one global icon, who would it be?", imposter: "Which famous person's career trajectory surprised everyone the most?" },
   { normal: "Which tech billionaire has the most influence over the world's future?", imposter: "Which world leader or politician has the most controversial media image?" },
@@ -359,7 +359,7 @@ const CATEGORIES = {
       "Civil Rights Movement", "The Printing Press Invention", "Sinking of the Titanic", "Chernobyl Disaster", "Boston Tea Party", "Mongol Empire", "The Crusades", "Prohibition Era", "Gold Rush", "Ancient Greece"
     ],
     questions: [
-        { normal: "Which historical era would be the most dangerous period to live in as a regular citizen?", imposter: "Which historical period produced the most impressive architectural monuments?" },
+  { normal: "Which historical era would be the most dangerous period to live in as a regular citizen?", imposter: "Which historical period produced the most impressive architectural monuments?" },
   { normal: "What historical event fundamentally reshaped human technology forever?", imposter: "What historical event fundamentally reshaped global borders and politics?" },
   { normal: "What ancient civilization would you visit if time travel were invented tomorrow?", imposter: "Which major war or tragedy could have been prevented with better leadership?" },
   { normal: "What ancient wonder built thousands of years ago still baffles engineers today?", imposter: "What ancient trade route connected distant continents and spread ideas?" },
@@ -402,7 +402,7 @@ const CATEGORIES = {
       "Hollow Knight", "Resident Evil 4", "Halo Infinite", "Final Fantasy VII", "Super Smash Bros Ultimate", "Tetris", "Pac-Man", "Clash of Clans", "Brawl Stars", "PUBG Mobile"
     ],
     questions: [
-        { normal: "What video game offers the best open-world exploration experience?", imposter: "What video game has the most toxic competitive player community?" },
+  { normal: "What video game offers the best open-world exploration experience?", imposter: "What video game has the most toxic competitive player community?" },
   { normal: "What game franchise can you dump 500+ hours into without getting bored?", imposter: "What game title revolutionized multiplayer gaming for an entire generation?" },
   { normal: "Which game features a soundtrack or story that left a deep impression on you?", imposter: "Which gaming masterpiece had the most hyped release in history?" },
   { normal: "What game requires precise mechanical skill and fast reaction time to win?", imposter: "What game is relaxing to play while listening to a podcast or music?" },
@@ -442,7 +442,7 @@ const CATEGORIES = {
       "Pure Joy", "Furious Anger", "Deep Melancholy", "Nostalgia", "Anxiety", "Enthusiasm", "Jealousy / Envy", "Embarrassment", "Serenity / Peace", "Pride", "Guilt", "Relief", "Curiosity", "Confusion", "Hope", "Despair", "Affection / Love", "Loneliness", "Awe & Wonder", "Frustration", "Boredom", "Euphoria", "Shame", "Compassion", "Bitterness", "Gratitude", "Amusement", "Satisfaction", "Suspicion", "Heartbreak"
     ],
     questions: [
-        { normal: "What emotion is hardest to mask when you are in a crowded room?", imposter: "What emotion leaves you feeling physically exhausted afterwards?" },
+  { normal: "What emotion is hardest to mask when you are in a crowded room?", imposter: "What emotion leaves you feeling physically exhausted afterwards?" },
   { normal: "What feeling is most likely to motivate someone to make a drastic life change?", imposter: "What feeling is most commonly triggered by late-night overthinking?" },
   { normal: "What state of mind brings the deepest sense of long-term fulfillment?", imposter: "What emotional reaction is most contagious among close friends?" },
   { normal: "What emotion do you feel when listening to a song from your teenage years?", imposter: "What emotion hits you when watching a sunset over a scenic mountain view?" },
@@ -484,7 +484,7 @@ const CATEGORIES = {
       "Ambulance", "Police Patrol Car", "Tractor", "Forklift", "Segway", "Kayak / Canoe", "Golf Cart", "Snowmobile", "Jet Ski", "Tuk Tuk / Auto Rickshaw"
     ],
     questions: [
-        { normal: "What mode of transport gives you the greatest rush of adrenaline?", imposter: "What vehicle would be your top choice for an epic cross-country road trip?" },
+  { normal: "What mode of transport gives you the greatest rush of adrenaline?", imposter: "What vehicle would be your top choice for an epic cross-country road trip?" },
   { normal: "What machine requires the most skill and training to pilot safely?", imposter: "What vehicle is most essential for global trade and logistics?" },
   { normal: "What vehicle represents the pinnacle of human engineering speed?", imposter: "What vehicle do you find most frustrating during rush hour traffic?" },
   { normal: "What commercial transport carries hundreds of passengers across oceans?", imposter: "What military vehicle operates under extreme pressure deep below ocean surface?" },
@@ -526,7 +526,7 @@ const CATEGORIES = {
       "Augmented Reality Glasses", "Dash Camera", "Bluetooth Speaker", "Laser Engraver", "Biometric Fingerprint Scanner", "Raspberry Pi Single Board", "Smart Thermostat", "Projector", "Electric Skateboard", "Ring Light"
     ],
     questions: [
-        { normal: "What tech device could you not survive without for more than 24 hours?", imposter: "What piece of tech felt like absolute science fiction when you first tried it?" },
+  { normal: "What tech device could you not survive without for more than 24 hours?", imposter: "What piece of tech felt like absolute science fiction when you first tried it?" },
   { normal: "What gadget on your desk gives you the biggest productivity boost?", imposter: "What electronic device drains its battery at a ridiculously fast rate?" },
   { normal: "What technology will render everyday items obsolete in 10 years?", imposter: "What smart home gadget turned out to be surprisingly useful?" },
   { normal: "What gadget do you put over your ears to block out ambient noise completely?", imposter: "What device strapped to your wrist tracks your steps and heart rate daily?" },
@@ -569,7 +569,7 @@ const CATEGORIES = {
       "Ireland", "Vietnam", "Indonesia", "Colombia", "Morocco", "Kenya", "Peru", "Jamaica", "Sweden", "Poland"
     ],
     questions: [
-        { normal: "Which country has a cultural cuisine that you could eat every single day?", imposter: "Which country has stunning natural landscapes you dream of visiting?" },
+  { normal: "Which country has a cultural cuisine that you could eat every single day?", imposter: "Which country has stunning natural landscapes you dream of visiting?" },
   { normal: "What country is world-famous for its cutting-edge tech and modern cities?", imposter: "What country is world-famous for its ancient monuments and historical heritage?" },
   { normal: "Which nation has the most passionate and energetic sports fanbase?", imposter: "Which nation is known for offering the highest quality of life and safety?" },
   { normal: "What country is famous for its timeless high-fashion brands and art museums?", imposter: "What country is famous for producing blockbuster movies and pop culture music?" },
@@ -611,7 +611,7 @@ const CATEGORIES = {
       "Las Vegas", "Mumbai", "San Francisco", "Kyoto", "Cape Town", "Athens", "Prague", "Miami", "Vienna", "Chicago"
     ],
     questions: [
-        { normal: "Which city has an iconic skyline that is instantly recognizable across the world?", imposter: "Which city is famous for having an endless, fast-paced 24/7 nightlife?" },
+  { normal: "Which city has an iconic skyline that is instantly recognizable across the world?", imposter: "Which city is famous for having an endless, fast-paced 24/7 nightlife?" },
   { normal: "What metropolis would be overwhelming for someone who dislikes crowded spaces?", imposter: "What destination is a dream location for street food and culinary tours?" },
   { normal: "Which city offers a perfect blend of historic charm and modern architecture?", imposter: "Which destination is best visited by walking or taking public transit?" },
   { normal: "Which global financial capital is famous for yellow taxis, Times Square, and skyscrapers?", imposter: "Which European capital is famous for the Eiffel Tower, fashion, and cafe culture?" },
@@ -653,7 +653,7 @@ const CATEGORIES = {
       "Steam", "AirBnB", "Wikipedia", "GitHub", "Canva", "Shazam", "Notion", "Subway Surfers", "Tinder", "Zoom"
     ],
     questions: [
-        { normal: "What app on your phone do you open out of sheer habit when you're bored?", imposter: "What app on your phone drains your screen time more than anything else?" },
+  { normal: "What app on your phone do you open out of sheer habit when you're bored?", imposter: "What app on your phone drains your screen time more than anything else?" },
   { normal: "Which platform has completely transformed how people communicate online?", imposter: "Which service would leave you completely lost if it suddenly went offline?" },
   { normal: "What digital tool do you rely on most for work, study, or productivity?", imposter: "What social platform has the most opinionated comment section?" },
   { normal: "What video platform do you turn to when you want to learn a skill or watch long-form videos?", imposter: "What short-form video app keeps users scrolling through endless viral clips?" },
