@@ -411,10 +411,10 @@ io.on('connection', (socket) => {
     });
 
     // Start 75-second writing timer
-    startPhaseTimer(roomCode, 75, () => {
+    startPhaseTimer(roomCode, 120, () => {
       // On timer expire, move automatically to voting phase
       room.phase = 'voting';
-      startPhaseTimer(roomCode, 60, () => processVotingResults(roomCode));
+      startPhaseTimer(roomCode, 180, () => processVotingResults(roomCode));
       broadcastRoomUpdate(roomCode);
     });
 
