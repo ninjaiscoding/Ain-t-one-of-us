@@ -382,7 +382,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 await broadcast_room_update(code)
 
                 # Start 75s timer
-                asyncio.create_task(room_timer_task(code, 75, lambda r_code: on_writing_timer_expire(r_code)))
+                asyncio.create_task(room_timer_task(code, 120, lambda r_code: on_writing_timer_expire(r_code)))
 
             elif action == "return_to_lobby":
                 code = payload.get("roomCode")
