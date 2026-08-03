@@ -410,11 +410,11 @@ io.on('connection', (socket) => {
       p.peekedHint = null;
     });
 
-    // Start 75-second writing timer
+    // Start 120-second writing timer
     startPhaseTimer(roomCode, 120, () => {
       // On timer expire, move automatically to voting phase
       room.phase = 'voting';
-      startPhaseTimer(roomCode, 180, () => processVotingResults(roomCode));
+      startPhaseTimer(roomCode, 240, () => processVotingResults(roomCode));
       broadcastRoomUpdate(roomCode);
     });
 
