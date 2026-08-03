@@ -1,4 +1,4 @@
-# 🕵️‍♂️ IMPOSTER - Real-Time Multiplayer Party Game
+# One Of Us - Real-Time Multiplayer Party Game (GAME LINK: https://aint-one-of-us.onrender.com/)
 
 A production-ready, highly polished, real-time web party game with two game modes: **Word Imposter** and **Sentence Imposter**.
 
@@ -6,7 +6,7 @@ Built using Node.js, Express, Socket.io, HTML5, Vanilla JavaScript, and Tailwind
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 1. **Two Distinct Game Modes**:
    - **Mode 1: Word Imposter**: Innocent players receive a secret word from a chosen category. The Imposter receives NO word (only category name) and can use a 1-time **Peek Perk** to view a random clue submitted by another player.
@@ -32,7 +32,7 @@ Built using Node.js, Express, Socket.io, HTML5, Vanilla JavaScript, and Tailwind
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```
 imposter-game-multiplayer/
@@ -50,7 +50,7 @@ imposter-game-multiplayer/
 
 ---
 
-## 🚀 Local Development Setup
+## Local Development Setup
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
@@ -82,7 +82,7 @@ imposter-game-multiplayer/
 
 ---
 
-## 🛠️ Deployment Instructions
+##  Deployment Instructions
 
 ### Option 1: Render Deployment (Recommended)
 
@@ -104,7 +104,7 @@ If using Render Blueprints:
 
 ---
 
-## 🎮 How to Play
+##  How to Play
 
 1. **Host Setup**: Enter your name, select **Game Mode** (Word or Sentence), choose a **Category**, and click **Create Room**.
 2. **Invite Friends**: Copy the 6-character room code from the top right and share it with 3+ friends.
