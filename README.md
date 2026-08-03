@@ -1,4 +1,5 @@
-# One Of Us - Real-Time Multiplayer Party Game (GAME LINK: https://aint-one-of-us.onrender.com/)
+# One Of you - Multiplayer Game.
+## GAME LINK: https://aint-one-of-us.onrender.com/
 
 A production-ready, highly polished, real-time web party game with two game modes: **Word Imposter** and **Sentence Imposter**.
 
